@@ -1,5 +1,5 @@
 File System should include:
-1. Read and write to files (.txt to begin with)
+1. Read and write to files (.txt to begin with) (Mostly done, but needs some tinkering)
 2. Create and delete files
 3. Move a file from one location to another
 4. Create a folder(?)

@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class fileSystem{
@@ -31,22 +35,9 @@ public class fileSystem{
     }
 
     /*Tries to create a file and then write to it. If the file already exists it will just write to it*/
+    /*The String "filename" is (currently) the full path to the file you'd like to create with the filename at the end*/
     public static void fileWrite(String text, String fileName){
-        /*Creating the new file*/
-        try{
-            File toCreate = new File(fileName);
-            /*If the file does not exist then it creates a new file*/
-            if(toCreate.createNewFile()){
-                System.out.println("File Created: " + toCreate.getName());
-            }
-            /*If the file exists it will say so*/
-            else{
-                System.out.println("File failed to create: already exists");
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        fileCreate(fileName);
         try{
             FileWriter writer = new FileWriter(fileName);
             writer.write(text);
@@ -56,6 +47,50 @@ public class fileSystem{
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    /*Simple method to create a file. "fileName" is the full path to the file location desired ending with the name of the file itself*/
+    public static void fileCreate(String fileName){
+        /*Creating rhe new file*/
+        try{
+            File toCreate = new File(fileName);
+            /*if the file does not exist it will create it and then confirm the creation*/
+            if(toCreate.createNewFile()){
+                System.out.println("File Created: " + toCreate.getName());
+            }
+            /*if the file already exists it will say so*/
+            else {
+                System.out.println(("File failed to create: already exists"));
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    /*Simple method to delete a file. "fileName" is the full path to the file location desired ending with the name of the file itself*/
+    public static void fileDelete(String fileName){
+        /*This try catch clause will be a little more complex as there are multiple parts of file deletion which can throw errors*/
+        try{
+            Files.deleteIfExists(Paths.get(fileName));
+        }
+        /*If the file or directory doesn't exist, throw an error*/
+        catch(NoSuchFileException e){
+            e.printStackTrace();
+            System.out.println("Error, no such file nor directory exists.");
+        }
+        /*If the user is attempting to delete a directory without it being empty, throw an error*/
+        catch(DirectoryNotEmptyException e){
+            e.printStackTrace();
+            System.out.println("Error, directory being deleted is not empty");
+        }
+        /*If the user encounters an IOException, throw an error*/
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        /*Otherwise, print deletion successful*/
+        System.out.println("Deletion Successful");
     }
 
 }
