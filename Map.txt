@@ -1,0 +1,37 @@
+File System should include:
+1. Read and write to files (.txt to begin with)
+2. Create and delete files
+3. Move a file from one location to another
+4. Create a folder(?)
+5. Move a folder from one location to another(?)
+6. Support more file formats than just .txt(?)
+
+Gameplan:
+One java file will be the "system" file which will include all the methods necessary for the file system
+	Ie. Read, write, etc...
+	This file will have all the methods and no testing for organizational reasons.
+One java file will be the "test" file which will have the main function and run each method in order to ensure
+They work.
+Read and write will be implemented first because they are the most simple
+	fileRead
+		Reads text from a .txt file and logs it into the console or stores it into a variable to be used
+		elsewhere
+		The input should be the filepath to the file being searched for.
+	fileWrite
+		Writes from the console or from a variable into a .txt file in a given location
+		Two methods, one from reading from console (user input), and one for reading from a string
+		variable
+Deleting and creating files next
+	fileDelete
+		Gets a file by name (inputted) and deletes it from its current directory (also inputted to avoid
+		situations where the incorrect or multiple files get deleted)
+	fileCreate
+		Creates a file in a given directory with a given name
+Moving files afterwards
+	fileMove
+		Takes in input of where a file currently is, the name of that file, and the location to move
+		it to.
+		Creates a new file of that name in the desired location and deletes the file in the first
+		location (though not necessarily in that order)
+Creating folders etc.. if there is time
+	Will be worked on at a later time.
