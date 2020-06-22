@@ -12,6 +12,19 @@ import java.util.*;
 
 public class fileSystem{
 
+    /*curDir (or current directory) is a global variable which can be set and then all file creation, deletion, reading, writing, etc... will use that file path*/
+    private static String curDir = "";
+
+    /*filePath is the path to the working directory you want to edit files in*/
+    public static void setDirectory(String filePath){
+        curDir = filePath;
+    }
+
+    /*Prints whatever curDir is*/
+    public static String getDirectory(){
+        return curDir;
+    }
+
     /*fileRead reads a given file*/
     /*1.0 reads a file to a variable. The input "fileName" must be the full path to the directory*/
     public static String fileRead(String fileName){
@@ -19,15 +32,14 @@ public class fileSystem{
         String text = "";
         try {
             /*get the name and directory of the file as input*/
-            File toRead = new File(fileName);
+            File toRead = new File(curDir + fileName);
             Scanner reader = new Scanner(toRead);
             while (reader.hasNextLine()) {
                 text = reader.nextLine();
                 System.out.println(text);
             }
             reader.close();
-        }
-        catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -39,7 +51,7 @@ public class fileSystem{
     public static void fileWrite(String text, String fileName){
         fileCreate(fileName);
         try{
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(curDir + fileName);
             writer.write(text);
             writer.close();
             System.out.println("Successfully wrote to file");
@@ -51,9 +63,9 @@ public class fileSystem{
 
     /*Simple method to create a file. "fileName" is the full path to the file location desired ending with the name of the file itself*/
     public static void fileCreate(String fileName){
-        /*Creating rhe new file*/
+        /*Creating the new file*/
         try{
-            File toCreate = new File(fileName);
+            File toCreate = new File(curDir + fileName);
             /*if the file does not exist it will create it and then confirm the creation*/
             if(toCreate.createNewFile()){
                 System.out.println("File Created: " + toCreate.getName());
@@ -73,7 +85,7 @@ public class fileSystem{
     public static void fileDelete(String fileName){
         /*This try catch clause will be a little more complex as there are multiple parts of file deletion which can throw errors*/
         try{
-            Files.deleteIfExists(Paths.get(fileName));
+            Files.deleteIfExists(Paths.get(curDir + fileName));
         }
         /*If the file or directory doesn't exist, throw an error*/
         catch(NoSuchFileException e){
