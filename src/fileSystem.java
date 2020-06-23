@@ -105,4 +105,20 @@ public class fileSystem{
         System.out.println("Deletion Successful");
     }
 
+    /*Moves a given file to a new specified directory and then gets the user back to the original directory*/
+    public static void fileMove(String fileName, String newDir){
+        /*textContain is the text in the file that is to be moved. Since it will be deleted it needs to be stored somewhere*/
+        String textContain = fileRead(fileName);
+        /*Delete the old file in the old location*/
+        fileDelete(fileName);
+        /*Store the current directory so it can be returned to later*/
+        String dirContain = curDir;
+        /*Set the current directory to be the new directory so it will work with the methods*/
+        curDir = newDir;
+        /*fileWrite will automatically create a new file if one doesn't exist. The text written is the text stored earlier*/
+        fileWrite(textContain, fileName);
+        /*Set the current directory back to the original*/
+        curDir = dirContain;
+    }
+
 }

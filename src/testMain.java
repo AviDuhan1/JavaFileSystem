@@ -6,5 +6,6 @@ public class testMain extends fileSystem{
         fileWrite("This is a new file with some new text.", "newText.txt");
         fileCreate("toBeDeleted.txt");
         fileDelete("toBeDeleted.txt");
+        fileMove("testText.txt", "C:\\Users\\Avi Duhan\\Desktop\\");
     }
 }
