@@ -121,4 +121,10 @@ public class fileSystem{
         curDir = dirContain;
     }
 
+    /*createFolder makes a new folder of the title folderName in the current directory*/
+    public static void createFolder(String folderName){
+        /*Create the new folder*/
+        new File(curDir + folderName).mkdir();
+    }
+
 }
